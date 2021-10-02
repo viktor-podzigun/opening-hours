@@ -13,6 +13,7 @@ lazy val `opening-hours` = (project in file("."))
       //"-Xcheckinit",
       "-Xfatal-warnings",
       "-Xlint:_",
+      //"-Xlint:-byname-implicit",
       "-Ywarn-macros:after", // Only inspect expanded trees when generating unused symbol warnings
       "-explaintypes",
       "-unchecked",

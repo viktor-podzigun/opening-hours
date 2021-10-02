@@ -6,5 +6,8 @@ REST API Service for formatting opening hours of restaurants
 
 To build and run all the tests use the following command:
 ```bash
-sbt scalafmtAll test
+sbt test
+
+# or with auto-formatting and coverage:
+sbt scalafmtAll coverage test coverageReport
 ```
