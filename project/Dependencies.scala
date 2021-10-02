@@ -3,8 +3,7 @@ import sbt._
 object Dependencies {
 
   val logbackVersion = "1.2.5"
-  val catsVersion = "2.4.2"
-  val catsEffectVersion = "2.3.3"
+  val catsVersion = "2.5.0"
   val circeVersion = "0.13.0"
   val http4sVersion = "0.21.15"
 
@@ -16,7 +15,7 @@ object Dependencies {
     "org.typelevel" %% "cats-core" % catsVersion,
     "org.typelevel" %% "cats-laws" % catsVersion,
     "org.typelevel" %% "cats-kernel" % catsVersion,
-    "org.typelevel" %% "cats-effect" % catsEffectVersion
+    "org.typelevel" %% "cats-effect" % catsVersion
   )
 
   lazy val circe: Seq[ModuleID] = Seq(
@@ -30,7 +29,9 @@ object Dependencies {
   )
 
   lazy val http4s: Seq[ModuleID] = Seq(
+    "org.http4s" %% "http4s-blaze-server" % http4sVersion,
     "org.http4s" %% "http4s-blaze-client" % http4sVersion,
+    "org.http4s" %% "http4s-dsl" % http4sVersion,
     "org.http4s" %% "http4s-circe" % http4sVersion
   )
 }
