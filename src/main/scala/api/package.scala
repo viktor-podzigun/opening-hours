@@ -1,4 +1,4 @@
 package object api {
 
-  type OpeningHoursReq = Map[String, List[OpeningHoursItem]]
+  type OpeningHoursReq = Map[String, List[OpeningHoursReqData]]
 }

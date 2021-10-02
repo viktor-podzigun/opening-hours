@@ -9,11 +9,11 @@ class OpeningHoursReqSpec extends AnyFlatSpec with Matchers {
 
   private val data: OpeningHoursReq = Map(
     "monday" -> List(
-      OpeningHoursItem(
+      OpeningHoursReqData(
         `type` = "open",
         value = 32400
       ),
-      OpeningHoursItem(
+      OpeningHoursReqData(
         `type` = "close",
         value = 72000
       )
