@@ -9,7 +9,87 @@ import org.scalatest.DoNotDiscover
 @DoNotDiscover
 class OpeningHoursApiSpec extends BaseIntegrationSpec {
 
-  "/openinghours/format" should "return formatted opening hours" in {
+  "/openinghours/format" should "return 400 if invalid dayofweek" in {
+    //given
+    val data = Map(
+      "happyfriday" -> List(
+        FormatReqData(
+          `type` = "open",
+          value = 32400
+        )
+      )
+    )
+
+    //when
+    val (status, resp) = callOpeningHoursFormat(data)
+
+    //then
+    status shouldBe Status.BadRequest
+    resp shouldBe {
+      "Unknown dayofweek: happyfriday, expected one of: [monday, tuesday, wednesday, thursday, friday, saturday, sunday]"
+    }
+  }
+
+  it should "return 400 if invalid type" in {
+    //given
+    val data = Map(
+      "monday" -> List(
+        FormatReqData(
+          `type` = "happy",
+          value = 32400
+        )
+      )
+    )
+
+    //when
+    val (status, resp) = callOpeningHoursFormat(data)
+
+    //then
+    status shouldBe Status.BadRequest
+    resp shouldBe {
+      "Unknown type: happy, expected one of: [open, close]"
+    }
+  }
+
+  it should "return 400 if value < 0" in {
+    //given
+    val data = Map(
+      "monday" -> List(
+        FormatReqData(
+          `type` = "open",
+          value = -1
+        )
+      )
+    )
+
+    //when
+    val (status, resp) = callOpeningHoursFormat(data)
+
+    //then
+    status shouldBe Status.BadRequest
+    resp shouldBe "Invalid value (valid values 0 - 86399): -1"
+  }
+
+  it should "return 400 if value > 86399" in {
+    //given
+    val data = Map(
+      "monday" -> List(
+        FormatReqData(
+          `type` = "open",
+          value = 86400
+        )
+      )
+    )
+
+    //when
+    val (status, resp) = callOpeningHoursFormat(data)
+
+    //then
+    status shouldBe Status.BadRequest
+    resp shouldBe "Invalid value (valid values 0 - 86399): 86400"
+  }
+
+  it should "return 200 and formatted opening hours" in {
     //given
     val data = Map(
       "monday" -> List(

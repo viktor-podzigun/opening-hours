@@ -1,9 +1,16 @@
 package openinghours.model
 
-sealed trait OpeningHoursType
+case class OpeningHoursType private (id: String, name: String) {
+
+  override def toString: String = name
+}
 
 object OpeningHoursType {
 
-  case object Open extends OpeningHoursType
-  case object Close extends OpeningHoursType
+  def fromString(id: String): Option[OpeningHoursType] = values.find(_.id == id)
+
+  lazy val values: List[OpeningHoursType] = List(
+    OpeningHoursType("open", "Open"),
+    OpeningHoursType("close", "Close")
+  )
 }
