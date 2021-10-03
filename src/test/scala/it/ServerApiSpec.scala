@@ -3,10 +3,9 @@ package it
 import cats.effect.IO
 import org.http4s.{Request, Status, Uri}
 import org.scalatest.DoNotDiscover
-import org.scalatest.flatspec.AnyFlatSpec
 
 @DoNotDiscover
-class HealthPathTest extends AnyFlatSpec with BaseIntegrationSpec {
+class ServerApiSpec extends BaseIntegrationSpec {
 
   "/" should "return Forbidden status" in {
     //given
@@ -18,7 +17,7 @@ class HealthPathTest extends AnyFlatSpec with BaseIntegrationSpec {
 
     //then
     resp.status shouldBe Status.Forbidden
-    resp.as[String].unsafeRunSync() shouldBe ""
+    resp.bodyText.compile.string.unsafeRunSync() shouldBe ""
   }
 
   "/status" should "return correct status and body" in {
@@ -31,6 +30,6 @@ class HealthPathTest extends AnyFlatSpec with BaseIntegrationSpec {
 
     //then
     resp.status shouldBe Status.Ok
-    resp.as[String].unsafeRunSync() shouldBe ""
+    resp.bodyText.compile.string.unsafeRunSync() shouldBe ""
   }
 }

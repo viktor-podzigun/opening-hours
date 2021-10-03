@@ -12,7 +12,8 @@ import scala.concurrent.ExecutionContext
 
 class AllOpeningHoursIntegrationTests
     extends Suites(
-      new HealthPathTest
+      new ServerApiSpec,
+      new OpeningHoursApiSpec
     )
     with OneTestInjectorPerSuite[TestInit]
     with BeforeAndAfterAll {

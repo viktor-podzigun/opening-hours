@@ -1,13 +1,16 @@
 package app
 
 import cats.effect.IO
+import cats.implicits._
 import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
 
-class HttpServerRoutes extends Http4sDsl[IO] {
+class HttpServerRoutes(otherRoutes: List[HttpRoutes[IO]]) extends Http4sDsl[IO] {
 
   def service: HttpRoutes[IO] =
-    healthRoutes
+    otherRoutes.foldLeft(healthRoutes) { (res, routes) =>
+      res <+> routes
+    }
 
   def healthRoutes: HttpRoutes[IO] =
     HttpRoutes.of[IO] {
