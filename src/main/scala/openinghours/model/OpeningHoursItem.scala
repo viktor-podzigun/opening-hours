@@ -1,4 +1,4 @@
-package model
+package openinghours.model
 
 import java.time.LocalTime
 

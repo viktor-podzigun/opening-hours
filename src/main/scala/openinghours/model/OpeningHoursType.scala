@@ -1,4 +1,4 @@
-package model
+package openinghours.model
 
 sealed trait OpeningHoursType
 

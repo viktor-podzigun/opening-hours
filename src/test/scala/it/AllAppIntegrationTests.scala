@@ -1,6 +1,6 @@
 package it
 
-import app.{Init, OpeningHoursApp, Resources}
+import app.{AppInit, AppMain, AppResources}
 import cats.effect._
 import it.util.HttpPortUtil
 import it.util.injector.OneTestInjectorPerSuite
@@ -10,7 +10,7 @@ import org.slf4j.{Logger, LoggerFactory}
 
 import scala.concurrent.ExecutionContext
 
-class AllOpeningHoursIntegrationTests
+class AllAppIntegrationTests
     extends Suites(
       new ServerApiSpec,
       new OpeningHoursApiSpec
@@ -26,12 +26,12 @@ class AllOpeningHoursIntegrationTests
   private var _init: TestInit = _
   implicit lazy val injector: TestInit = _init
 
-  private lazy val app: OpeningHoursApp = new OpeningHoursApp(httpPort) with IOApp {
+  private lazy val app: AppMain = new AppMain(httpPort) with IOApp {
 
     override implicit def contextShift: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
     override implicit def timer: Timer[IO] = IO.timer(ExecutionContext.global)
 
-    override def initialise(resources: Resources): Resource[IO, Init] = {
+    override def initialise(resources: AppResources): Resource[IO, AppInit] = {
       for {
         client <- BlazeClientBuilder[IO](ExecutionContext.global).resource
       } yield {

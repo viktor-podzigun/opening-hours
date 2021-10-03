@@ -9,10 +9,10 @@ import org.http4s.server.blaze.BlazeServerBuilder
 
 import scala.concurrent.ExecutionContext
 
-class HttpServer(
+class AppServer(
     port: Int,
-    resources: Resources,
-    routes: HttpServerRoutes
+    resources: AppResources,
+    routes: AppRoutes
 )(implicit cs: ContextShift[IO], timer: Timer[IO])
     extends Http4sDsl[IO] {
 

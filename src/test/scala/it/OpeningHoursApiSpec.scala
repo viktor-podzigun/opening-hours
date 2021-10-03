@@ -1,6 +1,6 @@
 package it
 
-import api._
+import openinghours.api._
 import cats.effect.IO
 import org.http4s.circe.CirceEntityCodec._
 import org.http4s.{Method, Request, Status, Uri}
@@ -13,11 +13,11 @@ class OpeningHoursApiSpec extends BaseIntegrationSpec {
     //given
     val data = Map(
       "monday" -> List(
-        OpeningHoursReqData(
+        FormatReqData(
           `type` = "open",
           value = 32400
         ),
-        OpeningHoursReqData(
+        FormatReqData(
           `type` = "close",
           value = 72000
         )
@@ -32,7 +32,7 @@ class OpeningHoursApiSpec extends BaseIntegrationSpec {
     resp should not be empty
   }
 
-  private def callOpeningHoursFormat(data: OpeningHoursReq): (Status, String) = {
+  private def callOpeningHoursFormat(data: FormatReq): (Status, String) = {
     val req = Request[IO](
       method = Method.POST,
       uri = Uri.unsafeFromString(s"$baseUrl/openinghours/format")

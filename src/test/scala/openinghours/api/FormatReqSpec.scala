@@ -1,19 +1,19 @@
-package api
+package openinghours.api
 
 import io.circe.parser._
 import io.circe.syntax._
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class OpeningHoursReqSpec extends AnyFlatSpec with Matchers {
+class FormatReqSpec extends AnyFlatSpec with Matchers {
 
-  private val data: OpeningHoursReq = Map(
+  private val data: FormatReq = Map(
     "monday" -> List(
-      OpeningHoursReqData(
+      FormatReqData(
         `type` = "open",
         value = 32400
       ),
-      OpeningHoursReqData(
+      FormatReqData(
         `type` = "close",
         value = 72000
       )
@@ -36,7 +36,7 @@ class OpeningHoursReqSpec extends AnyFlatSpec with Matchers {
 
   it should "deserialize data from json" in {
     //when
-    val result = decode[OpeningHoursReq](expectedJson)
+    val result = decode[FormatReq](expectedJson)
 
     //then
     result shouldBe Right(data)
