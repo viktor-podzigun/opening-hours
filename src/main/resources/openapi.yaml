@@ -1,0 +1,36 @@
+openapi: 3.0.0
+info:
+  title: Opening Hours REST API
+  description: REST API for formatting opening hours of restaurants
+  contact:
+    name: Viktor Podzigun
+    url: https://github.com/viktor-podzigun
+  version: 1.0.0
+servers:
+- url: http://localhost:8080
+  description: Opening Hours on local
+paths:
+  /opening-hours/format:
+    post:
+      tags:
+      - opening-hours
+      summary: Formats opening hours to human readable format
+      operationId: formatOpeningHours
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Map'
+        required: true
+      responses:
+        default:
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  schemas:
+    Map:
+      type: object
+      additionalProperties:
+        type: object

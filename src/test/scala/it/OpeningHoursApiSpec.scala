@@ -189,7 +189,7 @@ class OpeningHoursApiSpec extends BaseIntegrationSpec {
   private def callOpeningHoursFormat(data: FormatReq): (Status, String) = {
     val req = Request[IO](
       method = Method.POST,
-      uri = Uri.unsafeFromString(s"$baseUrl/openinghours/format")
+      uri = Uri.unsafeFromString(s"$baseUrl/opening-hours/format")
     ).withEntity(data)
 
     val resp = apiClient.run(req).use(IO(_)).unsafeRunSync()

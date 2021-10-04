@@ -4,7 +4,7 @@ import cats.effect.{ContextShift, IO, Resource}
 
 import java.util.concurrent.{ExecutorService, Executors}
 
-case class AppResources(httpExecutor: ExecutorService)
+case class AppResources(httpExecutor: ExecutorService, blockingPool: ExecutorService)
 
 object AppResources {
 
@@ -15,8 +15,11 @@ object AppResources {
       httpExecutor <- Resource.make(IO.delay(Executors.newFixedThreadPool(threadPoolSize))) { exec =>
         IO.delay(exec.shutdown())
       }
+      blockingPool <- Resource.make(IO.delay(Executors.newFixedThreadPool(4))) { exec =>
+        IO.delay(exec.shutdown())
+      }
     } yield {
-      AppResources(httpExecutor)
+      AppResources(httpExecutor, blockingPool)
     }
   }
 }

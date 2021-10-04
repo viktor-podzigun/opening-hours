@@ -12,6 +12,7 @@ import scala.concurrent.ExecutionContext
 
 class AllAppIntegrationTests
     extends Suites(
+      new SwaggerTest,
       new ServerApiSpec,
       new OpeningHoursApiSpec
     )

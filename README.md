@@ -21,7 +21,12 @@ sbt run
 
 Then, you can call HTTP endpoint, with `curl`, for example:
 ```bash
-curl -v -X POST -H "Content-Type: application/json" -d '{"monday" : [{"type" : "open","value" : 32400},{"type" : "close","value" : 72000}]}' 'http://localhost:8080/openinghours/format'
+curl -v -X POST -H "Content-Type: application/json" -d '{"monday" : [{"type" : "open","value" : 32400},{"type" : "close","value" : 72000}]}' 'http://localhost:8080/opening-hours/format'
+```
+
+Alternatively, you can use **Swagger Web UI**:
+```bash
+open http://localhost:8080/swagger.html
 ```
 
 ### Comments

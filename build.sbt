@@ -25,6 +25,7 @@ lazy val `opening-hours` = (project in file("."))
       Dependencies.http4s ++
         Dependencies.circe ++
         Dependencies.cats ++
+        Dependencies.swagger ++
         Dependencies.logging ++ Seq(
           TestDependencies.scalaTest
         ).map(_ % Test)
