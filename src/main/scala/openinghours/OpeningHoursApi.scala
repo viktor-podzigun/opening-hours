@@ -18,7 +18,7 @@ object OpeningHoursApi {
 
   private val maxValue = LocalTime.MAX.toSecondOfDay
 
-  def convertToFormatModel(data: FormatReq): FormatModel = {
+  private def convertToFormatModel(data: FormatReq): FormatModel = {
     data.map {
       case (dayRaw, itemsRaw) =>
         val day = OpeningHoursDay
