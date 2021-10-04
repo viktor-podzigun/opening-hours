@@ -3,8 +3,12 @@ package openinghours.api
 import io.circe._
 import io.circe.generic.extras.Configuration
 import io.circe.generic.extras.semiauto._
+import io.swagger.v3.oas.annotations.media.Schema
 
-case class FormatReqData(`type`: String, value: Int)
+case class FormatReqData(
+    @Schema(required = true, allowableValues = Array("open", "close")) `type`: String,
+    @Schema(required = true, minimum = "0", maximum = "86399") value: Int
+)
 
 object FormatReqData {
 

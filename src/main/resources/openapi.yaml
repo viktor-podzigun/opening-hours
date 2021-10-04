@@ -20,7 +20,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Map'
+              $ref: '#/components/schemas/FormatReqDef'
         required: true
       responses:
         default:
@@ -30,7 +30,50 @@ paths:
                 type: string
 components:
   schemas:
-    Map:
+    FormatReqData:
+      required:
+      - type
+      - value
       type: object
-      additionalProperties:
-        type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - open
+          - close
+        value:
+          maximum: 86399
+          minimum: 0
+          type: integer
+          format: int32
+    FormatReqDef:
+      type: object
+      properties:
+        monday:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormatReqData'
+        tuesday:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormatReqData'
+        wednesday:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormatReqData'
+        thursday:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormatReqData'
+        friday:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormatReqData'
+        saturday:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormatReqData'
+        sunday:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormatReqData'

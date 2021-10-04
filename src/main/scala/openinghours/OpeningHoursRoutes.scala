@@ -42,7 +42,7 @@ class OpeningHoursRoutes(api: OpeningHoursApi) extends ApiRoutes {
     content = Array(
       new Content(
         mediaType = "application/json",
-        schema = new Schema(implementation = classOf[FormatReq])
+        schema = new Schema(implementation = classOf[FormatReqDef])
       )
     )
   )

@@ -13,7 +13,8 @@ import scala.jdk.CollectionConverters._
 class SwaggerTest extends BaseIntegrationSpec {
 
   private val unwantedDefinitions = List(
-    "PartialFunctionRequestIOIOResponseIO"
+    "PartialFunctionRequestIOIOResponseIO",
+    "ListFormatReqData"
   )
 
   private val openApiConfResource = "/openapi-configuration.yaml"
