@@ -24,6 +24,7 @@ paths:
         required: true
       responses:
         default:
+          description: Formatted output
           content:
             text/plain:
               schema:
