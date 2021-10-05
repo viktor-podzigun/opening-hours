@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - '*'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Git checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up JDK 8
+      uses: actions/setup-java@v2
+      with:
+        java-version: '8'
+        distribution: 'adopt'
+
+    - name: Cache sbt
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.sbt
+          ~/.ivy2/cache
+          ~/.coursier/cache/v1
+          ~/.cache/coursier/v1
+        key: ${{ runner.os }}-sbt-cache-v2-${{ hashFiles('**/*.sbt', 'project/**/*.scala') }}
+
+    - name: Run tests
+      run: sbt coverage test coverageReport && sbt coveralls
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
+    - name: Extract Tag Name
+      run: echo "TAG_NAME=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
+      if: ${{ startsWith(github.ref, 'refs/tags') }}
+
+    - name: Publish SNAPSHOT
+      run: sbt clean docker:publishLocal
+      if: ${{ !github.event.pull_request && env.TAG_NAME == '' }}
+
+    - name: Publish RELEASE
+      run: echo "TAG_NAME=$TAG_NAME" && echo "github.ref=${{ github.ref }}"
+      if: ${{ env.TAG_NAME != '' }}

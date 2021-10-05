@@ -1,4 +1,7 @@
 
+[![CI](https://github.com/viktor-podzigun/opening-hours/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/viktor-podzigun/opening-hours/actions/workflows/ci.yml?query=workflow%3Aci+branch%3Amain)
+[![Coverage Status](https://coveralls.io/repos/github/viktor-podzigun/opening-hours/badge.svg?branch=main)](https://coveralls.io/github/viktor-podzigun/opening-hours/?branch=main)
+
 ## opening-hours
 REST API Service for formatting opening hours of restaurants
 
