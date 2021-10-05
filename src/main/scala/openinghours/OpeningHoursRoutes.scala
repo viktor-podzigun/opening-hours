@@ -28,6 +28,7 @@ class OpeningHoursRoutes(api: OpeningHoursApi) extends ApiRoutes {
     summary = "Formats opening hours to human readable format",
     responses = Array(
       new ApiResponse(
+        description = "Formatted output",
         content = Array(
           new Content(
             mediaType = "text/plain",

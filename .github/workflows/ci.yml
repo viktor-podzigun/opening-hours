@@ -18,6 +18,11 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Validate OpenAPI definition
+      uses: char0n/swagger-editor-validate@master
+      with:
+        definition-file: src/main/resources/openapi.yaml
+
     - name: Set up JDK 8
       uses: actions/setup-java@v2
       with:
