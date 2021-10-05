@@ -1,7 +1,15 @@
+import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
+import com.typesafe.sbt.packager.docker.Cmd
+import com.typesafe.sbt.packager.docker.DockerPlugin.autoImport._
+import com.typesafe.sbt.packager.universal.UniversalDeployPlugin
 import sbt.Keys._
 import sbt._
 
 lazy val `opening-hours` = (project in file("."))
+  .enablePlugins(
+    JavaAppPackaging,
+    UniversalDeployPlugin
+  )
   .settings(
     organization := "io.github.viktor-podzigun",
     name := "opening-hours",
@@ -29,5 +37,20 @@ lazy val `opening-hours` = (project in file("."))
         Dependencies.logging ++ Seq(
           TestDependencies.scalaTest
         ).map(_ % Test)
-    }
+    },
+
+    //publishing
+    Compile / mainClass := Some("app.AppMain"),
+    Compile / packageDoc / mappings := Seq(), //speed up build
+    dockerExposedPorts := Seq(8080),
+    dockerBaseImage := "openjdk:11-slim",
+    dockerCommands := (dockerCommands.value match {
+      case from :: rest =>
+        List(
+          from,
+          //set JVM TTL, see https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html
+          Cmd("RUN", "mkdir", "-p", "$JAVA_HOME/jre/lib/security"),
+          Cmd("RUN", "echo", "networkaddress.cache.ttl=60", ">>", "$JAVA_HOME/jre/lib/security/java.security")
+        ) ++ rest
+    })
   )

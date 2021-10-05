@@ -29,6 +29,24 @@ Alternatively, you can use **Swagger Web UI**:
 open http://localhost:8080/swagger.html
 ```
 
+### How to build and run using Docker
+
+If you have `docker` installed locally,
+then you can build and publish app as docker image:
+```bash
+sbt clean docker:publishLocal
+```
+
+Then you can run built docker image like this:
+```bash
+docker run -d -p 8080:8080 --name opening-hours opening-hours:1.0.0-SNAPSHOT
+```
+
+To stop and cleanup, run the following command:
+```bash
+docker stop opening-hours && docker rm opening-hours
+```
+
 ### Comments
 
 The "main logic" for formatting opening hours is in
